@@ -1,0 +1,32 @@
+{
+  "org_id": "org_a",
+  "role": "retailer",
+  "product_type": "wireless earbuds",
+  "risk_level": "high",
+  "records": [
+    {
+      "customer_id": "C-1001",
+      "customer_name": "Anna Müller",
+      "customer_address": "Rollbergstraße 12, Berlin",
+      "batch_id": "BAT-042"
+    },
+    {
+      "customer_id": "C-1002",
+      "customer_name": "Peter Schmidt",
+      "customer_address": "Sonnenallee 8, Berlin",
+      "batch_id": "BAT-042"
+    },
+    {
+      "customer_id": "C-1003",
+      "customer_name": "Leila Hassan",
+      "customer_address": "Kottbusser Damm 4, Berlin",
+      "batch_id": "BAT-042"
+    },
+    {
+      "customer_id": "C-1099",
+      "customer_name": "Jonas Weber",
+      "customer_address": "Karl-Marx-Straße 1, Berlin",
+      "batch_id": "BAT-099"
+    }
+  ]
+}

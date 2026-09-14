@@ -1,0 +1,24 @@
+{
+  "org_id": "org_b",
+  "role": "supplier",
+  "product_type": "battery cell",
+  "risk_level": "high",
+  "supplier_id": "SUP-88",
+  "records": [
+    {
+      "customer_id": "C-1001",
+      "customer_name": "Anna Müller",
+      "batch_id": "BAT-042"
+    },
+    {
+      "customer_id": "C-1002",
+      "customer_name": "Peter Schmidt",
+      "batch_id": "BAT-042"
+    },
+    {
+      "customer_id": "C-2001",
+      "customer_name": "Nora Klein",
+      "batch_id": "BAT-042"
+    }
+  ]
+}
