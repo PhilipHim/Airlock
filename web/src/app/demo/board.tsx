@@ -98,7 +98,7 @@ function highlightClaim(text: string, hits: string[]) {
 }
 
 export default function DemoBoard() {
-  const [text, setText] = useState(PRESETS[0].text);
+  const [text, setText] = useState<string>(PRESETS[0].text);
   const [presetId, setPresetId] = useState<PresetId>("name");
   const [busy, setBusy] = useState(false);
   const [asking, setAsking] = useState(false);

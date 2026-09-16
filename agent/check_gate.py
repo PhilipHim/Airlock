@@ -162,14 +162,13 @@ def main() -> None:
 
     from agent.propose import (
         ENDEAVOR_MODEL,
-        OPENAI_MODEL,
         ask as ask_model,
         model_for,
         propose_prompt,
     )
 
     assert model_for("endeavor") == ENDEAVOR_MODEL == "flower-endeavor-v1.0"
-    assert model_for("openai") == OPENAI_MODEL == "openai/gpt-5.6-sol"
+    assert model_for("openai") == ENDEAVOR_MODEL
     assert "Anna Müller" in propose_prompt("name")
     assert "C-1001" in propose_prompt("ids")
     assert "Do not use any customer name" in propose_prompt("return")

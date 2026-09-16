@@ -13,16 +13,13 @@ from agent.roles import BATCH
 
 DEFAULT_MODEL = "flower-endeavor-v1.0"
 ENDEAVOR_MODEL = "flower-endeavor-v1.0"
-OPENAI_MODEL = "openai/gpt-5.6-sol"
-PUBLIC_OPENAI_MODEL = "gpt-4o-mini"
 KIND_MODELS = {
     "endeavor": ENDEAVOR_MODEL,
-    "openai": OPENAI_MODEL,
 }
 
 
-def model_for(kind: str) -> str | None:
-    return KIND_MODELS.get(kind)
+def model_for(kind: str) -> str:
+    return KIND_MODELS.get(kind, ENDEAVOR_MODEL)
 
 
 def _file_a_name() -> str:
