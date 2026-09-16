@@ -389,10 +389,9 @@ export default function DemoBoard({ embedded = false }: { embedded?: boolean }) 
         </section>
       </div>
 
-      <div className="karo" aria-hidden />
-
+      <div className="sticky bottom-0 bg-paper">
       <form
-        className="sticky bottom-0 bg-paper px-6 py-5 md:px-10"
+        className="px-6 py-5 md:px-10"
         onSubmit={(e) => {
           e.preventDefault();
           const preset = PRESETS.find((item) => item.id === presetId);
@@ -467,6 +466,8 @@ export default function DemoBoard({ embedded = false }: { embedded?: boolean }) 
           {error ? <span className="text-block">{error}</span> : null}
         </div>
       </form>
+      <div className="karo" aria-hidden />
+      </div>
     </div>
   );
 }
