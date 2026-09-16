@@ -14,7 +14,11 @@ Table talk: `PITCH.md`.
 
 **Talk person:** rehearse `PITCH.md`. Keep http://localhost:3000/file open. Do not change product scope.
 
-**Flower person:** login, workspace, Endeavor in the terminal, then finish the AIRLOCK series. Commands below.
+**Flower person:** no more debug runs. The live Endeavor propose already exists.
+
+## Two surfaces
+
+Terminal SuperGrid is the Flower proof. `/file` is the jury picture. `/file` reads `ui/last-run.json`. It does not stream SuperGrid live.
 
 ## Jury screen (freeze)
 
@@ -31,53 +35,45 @@ npm run dev
 - Landing: http://localhost:3000
 - File (show this): http://localhost:3000/file
 
-Search `Anna Müller`. It must read 0 hits in Context.
+Search `Anna Müller`. It must read 0 hits in Context. The middle must show `Model blocked: IDENTITY_DISCLOSURE`.
 
-## Flower Chat (this is the Claude Code path)
+## How this matches Flower's AgentApp tutorial
 
-Flower Chat is the terminal UI. Default agent talks like a coding agent. AIRLOCK is a separate loaded AgentApp. Do not mix them in one series.
+Same shape as [Write your first AgentApp](https://flower.ai/docs/agent/tutorials/write-your-first-agentapp.html):
+
+- `agentapp = "agent.agent_app:app"`
+- OpenAI SDK with `FLWR_RUNTIME_BASE_URL` and `FLWR_RUNTIME_API_KEY`
+- `flwr run . supergrid --stream`
+
+AIRLOCK then sends the model sentence through the Python gate before it can enter the Context ledger. SuperGrid streaming of the SDK itself failed here (`'type'`), so the model call uses `stream=False`. The model id is `flower-endeavor-v1.0`, not the tutorial default `openai/gpt-5.6-sol`.
+
+## Flower Chat (Claude Code path)
+
+Flower 1.36 chat commands: `/help`, `/quit`, `/new`, `/federation`, `/history`. There is no `/load`.
 
 ```bash
-cd Airlock
 uv run flwr login supergrid
-uv run flwr federation list supergrid
 uv run flwr chat
 ```
 
-Inside `flwr chat`:
+Footer must say `@philiphimmeroeder/workspace`. Never `@philiphimmeroeder/personal`.
 
-1. `/federation @philiphimmeroeder/workspace`
-2. Ask anything. That is the default Flower Agent. Use this to feel Endeavor / the Flower runtime in the terminal.
-3. `/load .` loads AIRLOCK from this folder.
-4. Type `move`, wait until it finishes.
-5. Type `second`. Same agent. Do not pick another `@agent`.
-6. Type `chair m2`. Same series.
-7. `/quit`
-
-Never use `@philiphimmeroeder/personal`. That federation is deployment and denies StartRun. Skip SuperNodes.
-
-`@` at an empty prompt lists agents. Picking a different agent starts a new series and drops the ledger.
-
-## Same series from the CLI
-
-Use this if Chat is awkward. Each command without a series ID starts a new series. Prefer Chat for second and chair after the first move.
+## AIRLOCK on SuperGrid
 
 ```bash
-uv run flwr run . supergrid --federation @philiphimmeroeder/workspace --run-config 'agent.model="endeavor-1.0" agent.input="move"' --stream
-uv run flwr list supergrid --limit 5
-uv run flwr log <run-id> supergrid --show
+uv run flwr run . supergrid --federation @philiphimmeroeder/workspace --run-config 'agent.model="flower-endeavor-v1.0" agent.input="move"' --stream
 ```
 
-Known good move: `5756721645464008460` on workspace. `m1` blocked, `m2` moved, Anna Müller 0. No `m0` yet, so Endeavor propose was empty on that run. Flower person must get a live propose before the talker claims the Endeavor bonus.
+Known good Endeavor move: `13311565059047633796`. Logs: `airlock.model_ok model=flower-endeavor-v1.0`. Snapshot: `m0` blocked IDENTITY_DISCLOSURE `source: model`, `m1` blocked, `m2` moved, Anna Müller 0.
 
-If Slack gives another model id, override `agent.model`.
+Do not use `endeavor-1.0`. SuperGrid rejects that id.
 
 ## Proof checklist
 
 - `uv run python -m agent.check_gate` prints BLOCK on the name and ALLOW on the count.
-- SuperGrid snapshot: name blocked, count 2, audit Anna Müller 0.
+- SuperGrid snapshot: model `m0` blocked, count 2, audit Anna Müller 0.
 - Context search on `/file`: 0.
-- Live propose: events `airlock.model_gated` or a motion `m0`. Then the talker may say Endeavor proposed, Python gated.
+- Talker may say: Endeavor proposed, Python gated.
 
 If StartRun is denied: freeze UI, say so, do not debug at the table.
 

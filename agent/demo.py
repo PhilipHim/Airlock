@@ -5,13 +5,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from agent.roles import chair, empty_state, move, second, snapshot
+from agent.roles import chair, empty_state, gate_model_proposal, move, second, snapshot
 
 UI_DIR = Path(__file__).resolve().parent.parent / "ui"
 
 
 def main() -> None:
     state = empty_state()
+    gate_model_proposal(state, "Anna Müller is affected by BAT-042.")
     move(state)
     second(state)
     chair(state, "m2")

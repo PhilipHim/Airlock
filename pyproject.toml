@@ -27,6 +27,6 @@ fab-include = ["agent/**/*.py", "data/**/*.json", "LICENSE"]
 agentapp = "agent.agent_app:app"
 
 [tool.flwr.app.config.agent]
-model = "endeavor-1.0"
+model = "flower-endeavor-v1.0"
 input = "move"
 max-tool-turns = 0

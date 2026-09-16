@@ -4,6 +4,7 @@ export type Motion = {
   reason?: string;
   allowed_alternative?: string;
   claim?: string;
+  source?: string;
   intersection_count?: number;
   batch_id?: string;
 };

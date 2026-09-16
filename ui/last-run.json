@@ -19,6 +19,14 @@
   },
   "motions": [
     {
+      "id": "m0",
+      "from_org": "org_a",
+      "status": "blocked",
+      "reason": "IDENTITY_DISCLOSURE",
+      "allowed_alternative": "aggregate_intersection",
+      "source": "model"
+    },
+    {
       "id": "m1",
       "from_org": "org_a",
       "status": "blocked",
@@ -59,6 +67,13 @@
     }
   ],
   "events": [
+    {
+      "type": "blocked",
+      "id": "m0",
+      "source": "model",
+      "reason": "IDENTITY_DISCLOSURE",
+      "allowed_alternative": "aggregate_intersection"
+    },
     {
       "type": "blocked",
       "id": "m1",

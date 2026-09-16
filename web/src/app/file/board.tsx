@@ -5,6 +5,13 @@ import { useMemo, useState } from "react";
 import type { LastRun, Motion } from "@/lib/types";
 
 function motionLine(m: Motion) {
+  if (m.source === "model" && m.status === "blocked") {
+    return (
+      <p key={m.id} className="font-medium text-block">
+        Model blocked: {m.reason}. Alternative: {m.allowed_alternative}.
+      </p>
+    );
+  }
   if (m.status === "blocked") {
     return (
       <p key={m.id} className="font-medium text-block">
