@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  ENDEAVOR_PROOF,
   PRESETS,
   type ChamberPreview,
   type InboxItem,
@@ -390,6 +391,16 @@ export default function DemoBoard({ embedded = false }: { embedded?: boolean }) 
       </div>
 
       <div className="sticky bottom-0 bg-paper">
+      <p className="border-t border-line px-6 pt-4 md:px-10">
+        <span className="font-medium">
+          {ENDEAVOR_PROOF.label} · SuperGrid run {ENDEAVOR_PROOF.run} · model{" "}
+          {ENDEAVOR_PROOF.model}
+        </span>
+        <span className="mt-1 block text-sm text-muted">
+          This page is the door. The number is the SuperGrid run that called
+          Endeavor.
+        </span>
+      </p>
       <form
         className="px-6 py-5 md:px-10"
         onSubmit={(e) => {

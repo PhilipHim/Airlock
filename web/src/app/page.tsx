@@ -1,4 +1,6 @@
+import CopyCommand from "./copy-command";
 import DemoBoard from "./demo/board";
+import { ENDEAVOR_PROOF, SUPERGRID_COMMAND } from "@/lib/chamber";
 
 export default function Home() {
   return (
@@ -85,8 +87,8 @@ export default function Home() {
             on this page is the live demo.
           </p>
           <p className="mt-4 text-lg leading-relaxed">
-            Flower Endeavor 1.0 proposed the sentence on SuperGrid run
-            13311565059047633796, model flower-endeavor-v1.0. Python gated it.
+            {ENDEAVOR_PROOF.label} proposed the sentence on SuperGrid run{" "}
+            {ENDEAVOR_PROOF.run}, model {ENDEAVOR_PROOF.model}. Python gated it.
             A human still has to close the record. The name never sat in the
             shared ledger.
           </p>
@@ -101,6 +103,19 @@ export default function Home() {
           >
             Live demo
           </a>
+        </div>
+      </section>
+
+      <section className="bg-ink px-6 py-20 text-paper md:px-16">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="font-display text-3xl tracking-wide md:text-5xl">
+            Run the agent on SuperGrid
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-paper/85">
+            The door on this page is the demonstration. Flower Endeavor runs in
+            the repo root with this command. Each run gets a new SuperGrid id.
+          </p>
+          <CopyCommand command={SUPERGRID_COMMAND} />
         </div>
       </section>
     </main>

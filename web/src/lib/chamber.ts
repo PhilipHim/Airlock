@@ -59,3 +59,12 @@ export const PRESETS = [
     text: "Customer C-1001 returned the earbuds. Battery swollen.",
   },
 ] as const;
+
+export const ENDEAVOR_PROOF = {
+  label: "Flower Endeavor 1.0",
+  run: "9109147444896690527",
+  model: "flower-endeavor-v1.0",
+} as const;
+
+export const SUPERGRID_COMMAND =
+  "uv run flwr run . supergrid --federation @philiphimmeroeder/workspace --run-config 'agent.model=\"flower-endeavor-v1.0\" agent.input=\"move\"' --stream";
