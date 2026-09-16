@@ -34,8 +34,48 @@ body {
   flex-shrink: 0;
 }
 
+.slip {
+  transition:
+    transform 0.7s ease,
+    opacity 0.7s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.slip-wait {
+  opacity: 0.35;
+}
+
+.slip-gone {
+  transform: translateX(12%);
+  opacity: 0.45;
+}
+
+.slip-in {
+  animation: slip-in 0.7s ease both;
+}
+
+@keyframes slip-in {
+  from {
+    transform: translateX(-18%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .slip,
+  .slip-in {
+    animation: none;
+    transition: none;
+    transform: none;
+    opacity: 1;
   }
 }

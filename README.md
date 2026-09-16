@@ -12,7 +12,7 @@ Table talk: `PITCH.md`.
 
 ## Split today
 
-**Talk person:** rehearse `PITCH.md`. Keep http://localhost:3000/file open. Do not change product scope.
+**Talk person:** rehearse `PITCH.md`. Start on http://localhost:3000. Press Run the incident. Then Open the file.
 
 **Flower person:** no more debug runs. The live Endeavor propose already exists.
 
@@ -32,8 +32,8 @@ npm install
 npm run dev
 ```
 
-- Landing: http://localhost:3000
-- File (show this): http://localhost:3000/file
+- Landing: http://localhost:3000 (press Run the incident)
+- File (search proof): http://localhost:3000/file
 
 Search `Anna Müller`. It must read 0 hits in Context. The middle must show `Model blocked: IDENTITY_DISCLOSURE`.
 

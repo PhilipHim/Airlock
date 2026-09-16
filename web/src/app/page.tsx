@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ChamberPlay from "./chamber-play";
 
 export default function Home() {
   return (
@@ -26,14 +27,14 @@ export default function Home() {
             <p className="mt-6 max-w-md text-lg leading-snug md:text-xl">
               Two company agents work one incident. Each keeps its own file.
             </p>
-            <Link
-              href="/file"
+            <a
+              href="#incident"
               className="mt-8 inline-flex h-28 w-28 items-center justify-center rounded-full bg-accent text-center text-sm font-medium leading-tight text-paper"
             >
-              Open
+              Run the
               <br />
-              the file
-            </Link>
+              incident
+            </a>
           </div>
           <div className="relative min-h-[55vh] md:min-h-screen">
             <img
@@ -46,6 +47,8 @@ export default function Home() {
 
         <div className="karo absolute bottom-0 left-0 right-0 z-10" aria-hidden />
       </section>
+
+      <ChamberPlay />
 
       <section className="bg-ink px-6 py-20 text-paper md:px-16">
         <div className="mx-auto max-w-2xl">
