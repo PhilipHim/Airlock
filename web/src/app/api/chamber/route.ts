@@ -1,11 +1,12 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { previewBody } from "@/lib/preview";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
 
-function preview(body: unknown, timeoutMs: number): Promise<unknown> {
+function previewPython(body: unknown, timeoutMs: number): Promise<unknown> {
   const root = path.resolve(process.cwd(), "..");
   return new Promise((resolve, reject) => {
     const child = spawn("uv", ["run", "python", "-m", "agent.live"], {
@@ -45,6 +46,20 @@ function preview(body: unknown, timeoutMs: number): Promise<unknown> {
     child.stdin.write(JSON.stringify(body));
     child.stdin.end();
   });
+}
+
+async function preview(body: unknown, timeoutMs: number): Promise<unknown> {
+  if (!process.env.VERCEL) {
+    try {
+      return await previewPython(body, timeoutMs);
+    } catch {
+      // Local uv missing: same door in TypeScript.
+    }
+  }
+  if (!body || typeof body !== "object") {
+    throw new Error("Send a JSON body.");
+  }
+  return previewBody(body as Record<string, unknown>);
 }
 
 export async function POST(req: Request) {

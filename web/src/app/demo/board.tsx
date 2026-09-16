@@ -256,7 +256,7 @@ export default function DemoBoard() {
             Home
           </Link>
         </nav>
-        <p className="text-sm font-medium">Flower Endeavor</p>
+        <p className="text-sm font-medium">The door</p>
       </header>
 
       <main className="grid flex-1 md:grid-cols-3">
@@ -460,7 +460,7 @@ export default function DemoBoard() {
           <span className="font-medium">{hits}</span>
           <span className="text-muted">{msg}</span>
           <span className="text-muted">
-            {modelUsed ? `Wrote with ${modelUsed}.` : "Flower Endeavor"}
+            {modelUsed ? `Wrote with ${modelUsed}.` : "The door. Same Python policy."}
           </span>
           {error ? <span className="text-block">{error}</span> : null}
         </div>
