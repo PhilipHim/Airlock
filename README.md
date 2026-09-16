@@ -6,7 +6,8 @@ Hackathon: Flower Collaborative Agents, Berlin, 16 September 2026.
 
 Judging: Impact, Innovation, Flower, Execution, Presentation, Safety. Bonus: Flower Endeavor.
 
-Repo: https://github.com/PhilipHim/Airlock
+Repo: https://github.com/PhilipHim/Airlock  
+Flower Hub: https://flower.ai/apps/philiphimmeroeder/airlock/ (`@philiphimmeroeder/airlock`)
 
 Table talk: `PITCH.md`.
 

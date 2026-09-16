@@ -17,7 +17,7 @@ dependencies = [
 packages = ["agent"]
 
 [tool.flwr.app]
-publisher = "local"
+publisher = "philiphimmeroeder"
 display-name = "AIRLOCK"
 fab-format-version = 1
 flwr-version-target = "1.35.0"
