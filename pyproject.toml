@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hackathon-collab-agent-recipe"
-version = "0.2.0"
-description = "A collaborative research Flower AgentApp"
+name = "airlock"
+version = "0.1.0"
+description = "Policy gate for collaborative Flower agents"
 license = { file = "LICENSE" }
 requires-python = ">=3.11,<4.0"
 dependencies = [
@@ -17,8 +17,8 @@ dependencies = [
 packages = ["agent"]
 
 [tool.flwr.app]
-publisher = "flwrlabs"
-display-name = "Collaborative Research Agent"
+publisher = "local"
+display-name = "AIRLOCK"
 fab-format-version = 1
 flwr-version-target = "1.35.0"
 fab-include = ["agent/**/*.py", "data/**/*.json", "LICENSE"]
@@ -27,6 +27,6 @@ fab-include = ["agent/**/*.py", "data/**/*.json", "LICENSE"]
 agentapp = "agent.agent_app:app"
 
 [tool.flwr.app.config.agent]
-model = "openai/gpt-5.6-sol"
-input = "Find two public sources that explain collaborative AI and compare them."
-max-tool-turns = 2
+model = "endeavor-1.0"
+input = "move"
+max-tool-turns = 0

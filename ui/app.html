@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIRLOCK · Akte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-app">
+  <div class="karo" aria-hidden="true"></div>
+  <header class="app-header">
+    <nav class="site-nav-links">
+      <a class="mark" href="index.html">AIRLOCK</a>
+      <a href="index.html">Landing</a>
+    </nav>
+    <div class="status" id="status" aria-label="Stand">
+      <span data-step="private">Private</span>
+      <span data-step="airlock">Airlock</span>
+      <span data-step="release">Human release</span>
+      <span data-step="shared">Shared</span>
+    </div>
+  </header>
+  <main class="board">
+    <section class="col" id="col-a" aria-labelledby="ha"></section>
+    <section class="col shared" id="col-m" aria-labelledby="hm"></section>
+    <section class="col" id="col-b" aria-labelledby="hb"></section>
+  </main>
+  <div class="bar">
+    <button class="btn" type="button" id="release">Akte schließen</button>
+    <label>
+      Context suchen
+      <input type="search" id="q" value="Anna Müller" autocomplete="off" />
+    </label>
+    <span id="hits" class="hit"></span>
+    <span id="msg" class="muted"></span>
+  </div>
+  <script src="last-run.js"></script>
+  <script>
+    const data = window.LAST_RUN;
+    const msg = document.getElementById("msg");
+    const hits = document.getElementById("hits");
+    const release = document.getElementById("release");
+
+    function setStep(name) {
+      document.querySelectorAll(".status span").forEach((el) => {
+        el.setAttribute("aria-current", el.dataset.step === name ? "true" : "false");
+      });
+    }
+
+    function motionLine(m) {
+      if (m.status === "blocked") {
+        return `<p class="block">Block ${m.id}: ${m.reason}. Alternative: ${m.allowed_alternative}.</p>`;
+      }
+      if (m.status === "seconded") {
+        return `<p class="ok">${m.claim} Zweite Stimme da.</p>`;
+      }
+      if (m.status === "moved") {
+        return `<p>${m.claim || m.id} Wartet auf zweite Stimme.</p>`;
+      }
+      if (m.status === "objected") {
+        return `<p class="block">${m.id} keine zweite Stimme.</p>`;
+      }
+      return `<p>${m.id}</p>`;
+    }
+
+    function render() {
+      if (!data) {
+        document.getElementById("col-m").innerHTML =
+          "<h2 id='hm'>Shared Channel</h2><p class='err'>Kein Lauf geladen. Im Ordner: uv run python -m agent.demo</p>";
+        msg.textContent = "Letzten Lauf laden.";
+        setStep("private");
+        return;
+      }
+      const a = data.org_a;
+      const b = data.org_b;
+      document.getElementById("col-a").innerHTML = `
+        <h2 id="ha">${a.label}</h2>
+        <p class="muted">${a.note}</p>
+        <p>${a.product}. Charge ${a.batch}.</p>
+        <ul>${a.private_names.map((n) => `<li>${n}</li>`).join("")}</ul>
+      `;
+      document.getElementById("col-b").innerHTML = `
+        <h2 id="hb">${b.label}</h2>
+        <p class="muted">${b.note}</p>
+        <p>${b.product}. Charge ${b.batch}.</p>
+        <p>${b.private_count} Treffer in der eigenen Liste.</p>
+      `;
+      const pub = data.public_record || [];
+      const mid = [];
+      mid.push("<h2 id='hm'>Shared Channel</h2>");
+      if (!data.motions.length && !pub.length) {
+        mid.push("<p class='empty'>Noch keine gemeinsame Akte.</p>");
+      }
+      data.motions.forEach((m) => mid.push(motionLine(m)));
+      if (pub.length) {
+        mid.push("<p class='ok'>Freigegeben: " + pub.map((p) => p.claim).join(" ") + "</p>");
+      } else if (data.motions.some((m) => m.status === "seconded")) {
+        mid.push("<p class='empty'>Noch keine gemeinsame Akte. Mensch muss schließen.</p>");
+      }
+      document.getElementById("col-m").innerHTML = mid.join("");
+      if (pub.length) setStep("shared");
+      else if (data.motions.some((m) => m.status === "seconded")) setStep("release");
+      else if (data.motions.some((m) => m.status === "blocked")) setStep("airlock");
+      else setStep("private");
+      release.disabled = pub.length > 0 || !data.motions.some((m) => m.status === "seconded");
+      search();
+    }
+
+    function search() {
+      const q = document.getElementById("q").value.trim();
+      if (!data || !q) {
+        hits.textContent = "";
+        return;
+      }
+      const n = (data.audit && data.audit[q]) != null
+        ? data.audit[q]
+        : JSON.stringify({
+            motions: data.motions,
+            public_record: data.public_record,
+            standing_orders: data.standing_orders,
+          }).toLowerCase().split(q.toLowerCase()).length - 1;
+      hits.textContent = n === 0 ? q + ": 0 Treffer im Context." : q + ": " + n + " Treffer.";
+    }
+
+    release.addEventListener("click", () => {
+      if (!data) return;
+      const seconded = data.motions.find((m) => m.status === "seconded");
+      if (!seconded) return;
+      data.public_record = [{
+        id: seconded.id,
+        claim: seconded.claim,
+        intersection_count: seconded.intersection_count,
+        batch_id: seconded.batch_id,
+      }];
+      msg.textContent = "Akte geschlossen.";
+      render();
+    });
+    document.getElementById("q").addEventListener("input", search);
+    render();
+  </script>
+</body>
+</html>

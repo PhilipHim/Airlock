@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIRLOCK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="hero" aria-label="AIRLOCK">
+    <nav class="site-nav">
+      <div class="site-nav-links">
+        <a class="mark" href="index.html">AIRLOCK</a>
+        <a href="app.html">Akte</a>
+      </div>
+    </nav>
+    <div class="hero-copy">
+      <h1>AIRLOCK</h1>
+      <p>Zwei Agenten klären einen Vorfall. Jeder behält seine Akte.</p>
+      <a class="btn btn-light" href="app.html">Zur Akte</a>
+    </div>
+    <a class="scroll" href="#kammer">Weiter</a>
+  </section>
+
+  <section class="intro">
+    <p>Sobald Agenten miteinander reden, schicken sie zu viel mit. Namen. IDs. Zahlen, die die andere Seite gar nicht stützen kann. Ein Prompt „sei vorsichtig“ hält das nicht.</p>
+    <p>Firmen lassen Agenten deshalb oft gar nicht aneinander. Die Daten bleiben liegen. Die Modelle können das. Die Rechte fehlen.</p>
+  </section>
+
+  <section class="chamber" id="kammer">
+    <div class="side">
+      <h2>Akte A</h2>
+      <p>Nur der eigene Agent sieht die Namen. Rohdaten bleiben in der Datei.</p>
+    </div>
+    <div class="void">
+      <h2>Kammer</h2>
+      <p>Noch leer.</p>
+      <p class="states">Private Akten. Airlock. Human release.</p>
+    </div>
+    <div class="side">
+      <h2>Akte B</h2>
+      <p>Die andere Seite sieht nur die eigene Liste. Keine IDs von links.</p>
+    </div>
+  </section>
+
+  <section class="proof">
+    <p class="zero">0</p>
+    <div>
+      <h2>Anna Müller im Context</h2>
+      <p>Nach dem Block suchst du im Flower-Context nach <code>Anna Müller</code>. Null Treffer. Die Namen stehen links in Akte A. In der gemeinsamen Mitte fehlen sie.</p>
+      <a class="btn" href="app.html">Akte öffnen</a>
+    </div>
+  </section>
+</body>
+</html>

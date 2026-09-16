@@ -1,4 +1,4 @@
-"""A collaborative research AgentApp for Flower."""
+"""Flower AgentApp. Same roles as agent.demo, persisted in Context."""
 
 from __future__ import annotations
 
@@ -6,190 +6,121 @@ import json
 import os
 from typing import Any
 
+from openai import OpenAI
 from flwr.agentapp import AgentApp, AgentSession
 from flwr.app import ConfigRecord, Context
-from openai import OpenAI
 
-TOOL_REFS = ("web_search", "web_fetch")
-DEFAULT_MAX_TOOL_TURNS = 2
-MAX_TOOL_TURNS_LIMIT = 10
+from agent.roles import chair, empty_state, gate_model_proposal, move, second, snapshot
 
 app = AgentApp()
+LEDGER = "ledger"
+PROPOSE = (
+    "You are agent A on a product incident for batch BAT-042. "
+    "Propose one sentence for the shared record. "
+    "You may use customer names if you think they help."
+)
 
 
-def message_text(content: Any) -> str:
-    """Normalize stored Open Responses message content to plain text."""
-    if isinstance(content, str):
-        return content
-    if isinstance(content, list):
-        parts: list[str] = []
-        for part in content:
-            if not isinstance(part, dict):
-                raise TypeError("Message content parts must be objects")
-            value = part.get("text", part.get("refusal"))
-            if not isinstance(value, str):
-                raise TypeError(
-                    "Message content parts must contain text or refusal"
-                )
-            parts.append(value)
-        return "\n".join(parts)
-    raise TypeError("Message content must be text or a list of content parts")
+def _load(context: Context) -> dict[str, Any]:
+    record = context.state.config_records.get(LEDGER)
+    if record is None:
+        return empty_state()
+    raw = record.get("json", "{}")
+    if not isinstance(raw, str) or not raw.strip():
+        return empty_state()
+    data = json.loads(raw)
+    data.setdefault("motions", [])
+    data.setdefault("standing_orders", [])
+    data.setdefault("public_record", [])
+    data.setdefault("events", [])
+    return data
 
 
-def conversation_messages(context: Context) -> list[dict[str, Any]]:
-    """Replay only user and assistant messages from the run series."""
-    messages: list[dict[str, Any]] = []
-    items_record = context.state.config_records.get("items")
-    items = items_record.get("json", []) if items_record is not None else []
-    for item_json in items:
-        item = json.loads(item_json)
-        if item.get("type") != "message":
-            continue
-        role = item.get("role")
-        if role not in {"user", "assistant"}:
-            continue
-        messages.append(
-            {
-                "type": "message",
-                "role": role,
-                "content": message_text(item.get("content")),
-            }
+def _save(context: Context, state: dict[str, Any]) -> None:
+    def write() -> None:
+        record = context.state.config_records.setdefault(
+            LEDGER, ConfigRecord({"json": "{}"})
         )
-    return messages
+        record["json"] = json.dumps(state, ensure_ascii=False)
+
+    lock = getattr(context, "locked", None)
+    if callable(lock):
+        with lock():
+            write()
+            return
+    write()
 
 
-def append_assistant_message(context: Context, text: str) -> None:
-    """Persist the final assistant message for the next run in the series."""
-    message = {"type": "message", "role": "assistant", "content": text}
-    with context.locked():
-        items_record = context.state.config_records.setdefault(
-            "items", ConfigRecord({"json": []})
-        )
-        items = items_record.get("json")
-        if not isinstance(items, list):
-            raise TypeError("Context items must be a list")
-        items.append(json.dumps(message))
+def _role(raw: str) -> tuple[str, str]:
+    text = raw.strip().lower()
+    if text.startswith("chair"):
+        parts = text.replace(":", " ").split()
+        motion_id = parts[1] if len(parts) > 1 else "m2"
+        return "chair", motion_id
+    if text == "second":
+        return "second", ""
+    return "move", ""
 
 
-def connector_error_output(
-    tool_call: dict[str, Any], exc: Exception
-) -> dict[str, Any]:
-    """Return a connector error that the model can handle on its next turn."""
-    return {
-        "type": "function_call_output",
-        "call_id": tool_call["call_id"],
-        "output": json.dumps({"error": str(exc)}),
-    }
+def _model_id(context: Context) -> str:
+    model = context.run_config.get("agent.model", "endeavor-1.0")
+    if isinstance(model, str) and model.strip():
+        return model.strip()
+    return "endeavor-1.0"
 
 
-def configured_string(context: Context, name: str) -> str:
-    """Read and validate a required non-empty string run-config value."""
-    value = context.run_config.get(name)
-    if not isinstance(value, str) or not value.strip():
-        raise ValueError(f"{name} must be a non-empty string")
-    return value.strip()
-
-
-def configured_tool_turns(context: Context) -> int:
-    """Read and validate the bounded tool-turn count."""
-    value = context.run_config.get("agent.max-tool-turns", DEFAULT_MAX_TOOL_TURNS)
-    if isinstance(value, bool) or not isinstance(value, int):
-        raise ValueError("agent.max-tool-turns must be an integer")
-    if not 0 <= value <= MAX_TOOL_TURNS_LIMIT:
-        raise ValueError(
-            f"agent.max-tool-turns must be between 0 and {MAX_TOOL_TURNS_LIMIT}"
-        )
-    return value
+def _propose(agent: AgentSession, context: Context) -> str:
+    base = os.environ.get("FLWR_RUNTIME_BASE_URL")
+    key = os.environ.get("FLWR_RUNTIME_API_KEY")
+    if not base or not key:
+        return ""
+    model = _model_id(context)
+    client = OpenAI(base_url=base, api_key=key, max_retries=0)
+    stream = client.responses.create(model=model, input=PROPOSE, stream=True)
+    chunks: list[str] = []
+    for event in stream:
+        if event.type in {"error", "response.failed"}:
+            agent.events.emit({"type": "airlock.model_failed", "model": model})
+            return ""
+        if event.type == "response.output_text.delta":
+            chunks.append(event.delta)
+    return "".join(chunks).strip()
 
 
 @app.main()
 def main(agent: AgentSession, context: Context) -> None:
-    """Research the configured prompt with a bounded connector loop."""
-    prompt = configured_string(context, "agent.input")
-    model = configured_string(context, "agent.model")
-    max_tool_turns = configured_tool_turns(context)
-
-    client = OpenAI(
-        base_url=os.environ["FLWR_RUNTIME_BASE_URL"],
-        api_key=os.environ["FLWR_RUNTIME_API_KEY"],
-    )
-    input_items = conversation_messages(context)
-    if not any(
-        item["role"] == "user" and item["content"].strip() == prompt
-        for item in input_items
-    ):
-        input_items.append(
-            {"type": "message", "role": "user", "content": prompt}
-        )
-
-    tools = agent.connectors.tools(TOOL_REFS)
-    allowed_tool_names = {
-        tool["name"] for tool in tools if isinstance(tool.get("name"), str)
+    prompt = context.run_config.get("agent.input", "move")
+    if not isinstance(prompt, str) or not prompt.strip():
+        raise ValueError("agent.input must be move, second, or chair")
+    role, motion_id = _role(prompt)
+    state = _load(context)
+    if role == "move":
+        try:
+            proposal = _propose(agent, context)
+        except Exception:
+            proposal = ""
+            agent.events.emit({"type": "airlock.model_skipped"})
+        if proposal:
+            gate_model_proposal(state, proposal)
+            agent.events.emit(
+                {
+                    "type": "airlock.model_gated",
+                    "model": _model_id(context),
+                }
+            )
+        move(state)
+    elif role == "second":
+        second(state)
+    else:
+        chair(state, motion_id)
+    _save(context, state)
+    view = snapshot(state)
+    safe = {
+        "role": role,
+        "motions": view["motions"],
+        "public_record": view["public_record"],
+        "audit": view["audit"],
+        "standing_orders": view["standing_orders"],
     }
-
-    for _ in range(max_tool_turns):
-        response = client.responses.create(
-            model=model,
-            input=input_items,
-            instructions=(
-                "Research the user's question using public sources when useful. "
-                "Request independent tool calls together. Prefer primary sources, "
-                "track source URLs, and never invent evidence."
-            ),
-            tools=tools,
-            tool_choice="auto",
-        )
-        response_output = [item.to_dict() for item in response.output]
-        tool_calls = [
-            item for item in response_output if item.get("type") == "function_call"
-        ]
-        if not tool_calls:
-            break
-
-        function_outputs: list[dict[str, Any]] = []
-        for tool_call in tool_calls:
-            if tool_call.get("name") not in allowed_tool_names:
-                function_outputs.append(
-                    connector_error_output(
-                        tool_call,
-                        RuntimeError(
-                            f"Tool {tool_call.get('name')!r} was not exposed"
-                        ),
-                    )
-                )
-                continue
-            try:
-                arguments = tool_call.get("arguments")
-                if isinstance(arguments, str):
-                    arguments = json.loads(arguments)
-                if not isinstance(arguments, dict):
-                    raise ValueError("Tool call arguments must be a JSON object")
-                function_outputs.append(agent.connectors.call(tool_call))
-            except (RuntimeError, ValueError) as exc:
-                function_outputs.append(connector_error_output(tool_call, exc))
-
-        input_items.extend(response_output)
-        input_items.extend(function_outputs)
-
-    stream = client.responses.create(
-        model=model,
-        input=input_items,
-        instructions=(
-            "Answer from the available evidence. Cite source URLs when available, "
-            "mention failed source access, distinguish inference from sourced fact, "
-            "and do not invent results."
-        ),
-        stream=True,
-    )
-
-    output_text = []
-    for event in stream:
-        agent.events.emit(event.to_dict())
-        if event.type in {"error", "response.failed"}:
-            raise RuntimeError(f"Model response failed: {event}")
-        if event.type == "response.output_text.delta":
-            output_text.append(event.delta)
-
-    final_text = "".join(output_text)
-    append_assistant_message(context, final_text)
-    print(final_text)
+    agent.events.emit({"type": "airlock.snapshot", **safe})
+    print(json.dumps(safe, ensure_ascii=False, indent=2))

@@ -18,6 +18,12 @@ ALLOWED_FIELDS = frozenset(
         "allowed_alternative",
         "blocked",
         "reason",
+        "id",
+        "claim",
+        "status",
+        "from_org",
+        "motion_id",
+        "seconded",
     }
 )
 

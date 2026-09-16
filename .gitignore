@@ -1,4 +1,7 @@
 .venv/
 *.fab
 __pycache__/
-
+.DS_Store
+uv.lock
+web/node_modules/
+web/.next/

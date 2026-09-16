@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-paper: #f3efe6;
+  --color-ink: #1c1914;
+  --color-muted: #5c564c;
+  --color-line: #d9d0be;
+  --color-accent: #e36b2c;
+  --color-field: #3f7a4a;
+  --color-block: #b42318;
+  --font-sans: var(--font-ibm);
+  --font-display: var(--font-bagel);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), sans-serif;
+}
+
+/* One tile is a 2x2 (two orange, two paper). Two tiles tall = four squares in a column. */
+.karo {
+  --karo: 28px;
+  height: calc(var(--karo) * 2);
+  background-image: repeating-conic-gradient(
+    #e36b2c 0% 25%,
+    #f3efe6 0% 50%
+  );
+  background-size: var(--karo) var(--karo);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

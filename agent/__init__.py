@@ -1,1 +1,1 @@
-"""A Flower collaborative research AgentApp."""
+"""A Flower AgentApp for AIRLOCK."""

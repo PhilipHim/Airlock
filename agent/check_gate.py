@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 from agent.gate import inspect
 from agent.orgs import aggregate_count, intersection_count
 
@@ -29,6 +31,12 @@ def main() -> None:
     )
     must_allow(aggregate_count("org_a", "BAT-042"))
     must_allow(intersection_count("org_a", "BAT-042", ["org_b", "org_c"]))
+    from agent.roles import empty_state, gate_model_proposal
+
+    leaked = empty_state()
+    gate_model_proposal(leaked, "Anna Müller is affected by BAT-042.")
+    assert leaked["motions"][0]["status"] == "blocked"
+    assert "Anna Müller" not in json.dumps(leaked)
     print("ok: gate enforces policy")
 
 
