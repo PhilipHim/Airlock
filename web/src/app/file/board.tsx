@@ -88,8 +88,8 @@ export default function Board({ initial }: { initial: LastRun | null }) {
         {
           id: seconded.id,
           claim: seconded.claim || "",
-          intersection_count: seconded.intersection_count,
           batch_id: seconded.batch_id,
+          product_type: seconded.product_type,
         },
       ],
     });
@@ -113,6 +113,9 @@ export default function Board({ initial }: { initial: LastRun | null }) {
           </Link>
           <Link href="/" className="text-sm font-medium">
             Home
+          </Link>
+          <Link href="/demo" className="text-sm font-medium">
+            Live demo
           </Link>
         </nav>
         <p className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.14em] text-muted">
@@ -162,11 +165,11 @@ export default function Board({ initial }: { initial: LastRun | null }) {
           </section>
           <section>
             <h2 className="font-display text-2xl tracking-wide">File B · Supplier</h2>
-            <p className="mt-1 text-sm text-muted">Only Agent B sees its own list.</p>
+            <p className="mt-1 text-sm text-muted">Only Agent B sees its factory lots.</p>
             <p className="mt-3">
               {data.org_b.product}. Batch {data.org_b.batch}.
             </p>
-            <p>{data.org_b.private_count} hits in its own list.</p>
+            <p>{data.org_b.private_count} lots of this batch in its factory file.</p>
           </section>
         </main>
       )}

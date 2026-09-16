@@ -3,19 +3,16 @@
 from __future__ import annotations
 
 import json
-import os
 from typing import Any
 
-from openai import OpenAI
 from flwr.agentapp import AgentApp, AgentSession
 from flwr.app import ConfigRecord, Context
 
-from agent.orgs import private_view
-from agent.roles import BATCH, chair, empty_state, gate_model_proposal, move, second, snapshot
+from agent.propose import DEFAULT_MODEL, sdk_propose
+from agent.roles import chair, empty_state, gate_model_proposal, move, second, snapshot
 
 app = AgentApp()
 LEDGER = "ledger"
-DEFAULT_MODEL = "flower-endeavor-v1.0"
 
 
 def _load(context: Context) -> dict[str, Any]:
@@ -66,76 +63,10 @@ def _model_id(context: Context) -> str:
     return DEFAULT_MODEL
 
 
-def _file_a_name() -> str:
-    for row in private_view("org_a")["records"]:
-        name = row.get("customer_name")
-        if row.get("batch_id") == BATCH and isinstance(name, str) and name:
-            return name
-    return "a customer"
-
-
-def _propose_prompt() -> str:
-    name = _file_a_name()
-    return (
-        "You are agent A on a product incident for batch BAT-042. "
-        f"Your private file lists {name} as affected. "
-        "Propose one sentence for the shared record. Use the customer name."
-    )
-
-
-def _output_text(payload: Any) -> str:
-    if not isinstance(payload, dict):
-        return ""
-    direct = payload.get("output_text")
-    if isinstance(direct, str) and direct.strip():
-        return direct.strip()
-    chunks: list[str] = []
-    output = payload.get("output")
-    if isinstance(output, list):
-        for item in output:
-            if not isinstance(item, dict):
-                continue
-            content = item.get("content")
-            if isinstance(content, list):
-                for part in content:
-                    if isinstance(part, dict) and isinstance(part.get("text"), str):
-                        chunks.append(part["text"])
-            elif isinstance(item.get("text"), str):
-                chunks.append(item["text"])
-    return "".join(chunks).strip()
-
-
-def _text_from_sdk(resp: Any) -> str:
-    text = getattr(resp, "output_text", None)
-    if isinstance(text, str) and text.strip():
-        return text.strip()
-    dump = resp.model_dump() if hasattr(resp, "model_dump") else None
-    return _output_text(dump)
-
-
-def _sdk_propose(model: str) -> str:
-    base = os.environ.get("FLWR_RUNTIME_BASE_URL")
-    key = os.environ.get("FLWR_RUNTIME_API_KEY")
-    if not base or not key:
-        print("airlock.model_failed no_runtime")
-        return ""
-    client = OpenAI(base_url=base, api_key=key, max_retries=0)
-    print(f"airlock.model_call model={model}")
-    resp = client.responses.create(
-        model=model, input=_propose_prompt(), stream=False
-    )
-    text = _text_from_sdk(resp)
-    if not text:
-        print("airlock.model_empty")
-        return ""
-    print(f"airlock.model_ok model={model}")
-    return text
-
-
 def _propose(context: Context) -> str:
     model = _model_id(context)
     try:
-        return _sdk_propose(model)
+        return sdk_propose(model)
     except Exception as exc:
         print(f"airlock.model_failed {type(exc).__name__}: {exc}")
         return ""

@@ -6,19 +6,16 @@
   "supplier_id": "SUP-88",
   "records": [
     {
-      "customer_id": "C-1001",
-      "customer_name": "Anna Müller",
-      "batch_id": "BAT-042"
+      "batch_id": "BAT-042",
+      "lot_note": "swell reports on cell line 2"
     },
     {
-      "customer_id": "C-1002",
-      "customer_name": "Peter Schmidt",
-      "batch_id": "BAT-042"
+      "batch_id": "BAT-042",
+      "lot_note": "shipped to retailer pack"
     },
     {
-      "customer_id": "C-2001",
-      "customer_name": "Nora Klein",
-      "batch_id": "BAT-042"
+      "batch_id": "BAT-088",
+      "lot_note": "older lot, no swell"
     }
   ]
 }

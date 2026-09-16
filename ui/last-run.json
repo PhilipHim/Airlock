@@ -14,8 +14,8 @@
     "label": "File B · Supplier",
     "product": "battery cell",
     "batch": "BAT-042",
-    "private_count": 3,
-    "note": "Only Agent B sees its own list."
+    "private_count": 2,
+    "note": "Only Agent B sees its factory lots."
   },
   "motions": [
     {
@@ -23,7 +23,7 @@
       "from_org": "org_a",
       "status": "blocked",
       "reason": "IDENTITY_DISCLOSURE",
-      "allowed_alternative": "aggregate_intersection",
+      "allowed_alternative": "batch_return",
       "source": "model"
     },
     {
@@ -31,39 +31,40 @@
       "from_org": "org_a",
       "status": "blocked",
       "reason": "IDENTITY_DISCLOSURE",
-      "allowed_alternative": "aggregate_intersection"
+      "allowed_alternative": "batch_return"
     },
     {
       "id": "m2",
       "from_org": "org_a",
-      "claim": "2 customers overlap on batch BAT-042.",
       "org_id": "org_a",
       "batch_id": "BAT-042",
-      "intersection_count": 2,
+      "product_type": "wireless earbuds",
+      "risk_level": "high",
+      "claim": "A customer returned the earbuds. Battery swollen.",
       "status": "seconded",
       "seconded": true
     }
   ],
   "standing_orders": [
     {
-      "policy": "cross_org_customer_impact",
+      "policy": "cross_org_return",
       "blocked": [
         "identity",
         "address",
         "customer_id"
       ],
       "preferred_queries": [
-        "aggregate_count",
-        "aggregate_intersection"
+        "batch_return",
+        "aggregate_count"
       ]
     }
   ],
   "public_record": [
     {
       "id": "m2",
-      "claim": "2 customers overlap on batch BAT-042.",
-      "intersection_count": 2,
-      "batch_id": "BAT-042"
+      "claim": "A customer returned the earbuds. Battery swollen.",
+      "batch_id": "BAT-042",
+      "product_type": "wireless earbuds"
     }
   ],
   "events": [
@@ -72,18 +73,18 @@
       "id": "m0",
       "source": "model",
       "reason": "IDENTITY_DISCLOSURE",
-      "allowed_alternative": "aggregate_intersection"
+      "allowed_alternative": "batch_return"
     },
     {
       "type": "blocked",
       "id": "m1",
       "reason": "IDENTITY_DISCLOSURE",
-      "allowed_alternative": "aggregate_intersection"
+      "allowed_alternative": "batch_return"
     },
     {
       "type": "moved",
       "id": "m2",
-      "claim": "2 customers overlap on batch BAT-042."
+      "claim": "A customer returned the earbuds. Battery swollen."
     },
     {
       "type": "seconded",
@@ -107,10 +108,14 @@
       "aggregate_count": 3,
       "risk_level": "high"
     },
-    "overlap": {
+    "return": {
+      "id": "m2",
+      "from_org": "org_a",
       "org_id": "org_a",
       "batch_id": "BAT-042",
-      "intersection_count": 2
+      "product_type": "wireless earbuds",
+      "risk_level": "high",
+      "claim": "A customer returned the earbuds. Battery swollen."
     }
   }
 }

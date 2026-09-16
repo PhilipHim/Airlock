@@ -5,8 +5,8 @@ export type Motion = {
   allowed_alternative?: string;
   claim?: string;
   source?: string;
-  intersection_count?: number;
   batch_id?: string;
+  product_type?: string;
 };
 
 export type LastRun = {
@@ -28,8 +28,8 @@ export type LastRun = {
   public_record: Array<{
     id: string;
     claim: string;
-    intersection_count?: number;
     batch_id?: string;
+    product_type?: string;
   }>;
   standing_orders: unknown[];
   audit?: Record<string, number>;

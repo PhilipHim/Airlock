@@ -9,12 +9,20 @@ export default function Home() {
           <span className="font-display text-2xl tracking-wide text-accent">
             AIRLOCK
           </span>
-          <Link
-            href="/file"
-            className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-paper"
-          >
-            Open the file
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/demo"
+              className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-paper"
+            >
+              Live demo
+            </Link>
+            <Link
+              href="/file"
+              className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-paper"
+            >
+              Open the file
+            </Link>
+          </div>
         </nav>
 
         <div className="grid min-h-screen md:grid-cols-2">
@@ -57,15 +65,16 @@ export default function Home() {
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-paper/85">
             Give two models a joint task and they send names with the useful
-            count. Firms then stop the agents talking. The files sit unused.
-            AIRLOCK is the door that lets the count through and keeps the name
-            in File A. The work can finish. The identity does not travel.
+            return. Firms then stop the agents talking. The files sit unused.
+            AIRLOCK is the door that lets batch and reason through and keeps
+            the name in File A. The work can finish. The identity does not
+            travel.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-paper/85">
-            A prompt that says be careful does not hold. The other agent has to
-            second the claim from its own file. Python then checks every field.
-            After a block, a standing order means the name is not proposed
-            again. That is policy on the shared write, not a longer chat.
+            A prompt that says be careful does not hold. Python then checks
+            every outbound sentence. After a block, a standing order means the
+            name is not proposed again. That is policy on the shared write, not
+            a longer chat.
           </p>
         </div>
       </section>
@@ -80,8 +89,7 @@ export default function Home() {
           <p className="mt-6 text-lg leading-relaxed">
             One Flower AgentApp runs the three roles: move, second, chair. The
             ledger lives in Flower Context. SuperGrid is the runtime. You can
-            search it. Watch the chamber on this page. Then open the file. One
-            button. The freeze is already there. We do not debug at the table.
+            search it. Watch the chamber on this page. Then open the live demo.
           </p>
           <p className="mt-4 text-lg leading-relaxed">
             Flower Endeavor 1.0 proposed the sentence on SuperGrid run
@@ -94,12 +102,20 @@ export default function Home() {
             process, two JSON files. In production each firm would run its own
             node.
           </p>
-          <Link
-            href="/file"
-            className="mt-10 inline-block rounded-full bg-accent px-6 py-3 font-medium text-paper"
-          >
-            Open the file
-          </Link>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href="/demo"
+              className="inline-block rounded-full bg-accent px-6 py-3 font-medium text-paper"
+            >
+              Live demo
+            </Link>
+            <Link
+              href="/file"
+              className="inline-block rounded-full bg-ink px-6 py-3 font-medium text-paper"
+            >
+              Open the file
+            </Link>
+          </div>
         </div>
       </section>
     </main>

@@ -17,17 +17,17 @@ If the page is empty: `uv run python -m agent.demo` then `cd web && npm run dev`
 
 ## Speak this (about 2 minutes)
 
-Agents leak the moment they collaborate. Names travel with the useful count. Firms then stop the agents talking.
+Agents leak the moment they collaborate. Names travel with the useful return. Firms then stop the agents talking.
 
 Press Run the incident.
 
-Watch File A. It tries to send Anna Müller. The chamber stops it. File B says never again. The next run does not send the name. Only the count crosses. Two customers overlap on BAT-042. Agent B can second that from its own list.
+Watch File A. It tries to send Anna Müller with a return. The chamber stops the name. Product and reason cross. A customer returned the earbuds. Battery swollen. Agent B only sees that sentence.
 
 Press the arrow. The second play is the clean run. No name is offered. All clear. Search is still zero.
 
-AIRLOCK is a door on the shared write. The other agent must second from its own file. Python allows the fields. A human still closes the record on the file screen.
+AIRLOCK is a door on the shared write. Python allows the fields. A human still closes the record on the file screen.
 
-Endeavor may propose the sentence. The gate is still Python. This replay matches SuperGrid run 13311565059047633796. You can grep the Context.
+Endeavor may propose the sentence. The gate is still Python. SuperGrid run 13311565059047633796 blocked the name. The return ticket is from File A on this laptop. You can grep the Context.
 
 Built today: gate, seconding, standing order, human release, AgentApp, Endeavor propose. Honest limit: two JSON files, one process. Next: one Flower node per company.
 
@@ -55,7 +55,7 @@ Yes. Model id `flower-endeavor-v1.0`. Run `13311565059047633796`. It proposed. P
 
 | Criterion | How the 2 minutes earn it |
 |-----------|---------------------------|
-| Impact | Play: leak, then firms can still count. |
+| Impact | Play: leak, then firms can still share the return. |
 | Safety | Name never sits as a shared record. Search 0 on `/file`. Human still closes. |
 | Innovation | Second run without the name. Seconding plus memory, not a chatbot filter. |
 | Flower | Caption on the play. AgentApp, Context, Endeavor. Then `/file`. |

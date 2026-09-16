@@ -66,8 +66,8 @@ export default function ChamberPlay() {
           </h2>
           <p className="mt-3 max-w-xl text-lg">
             {scene === "leak"
-              ? "Agent A tries to send a name. The chamber refuses. The next run sends only the count."
-              : "The standing order already holds. Agent A sends only the count. All clear."}
+              ? "Agent A tries to send a name with a return. The chamber refuses the name. The next run sends batch and reason."
+              : "The standing order already holds. Agent A sends only the return ticket. All clear."}
           </p>
         </div>
         <button
@@ -88,6 +88,7 @@ export default function ChamberPlay() {
               <li>Anna Müller</li>
               <li>Peter Schmidt</li>
               <li>Leila Hassan</li>
+              <li>Jonas Weber</li>
             </ul>
             {scene === "leak" ? (
               <p
@@ -97,7 +98,7 @@ export default function ChamberPlay() {
                     : "border-line"
                 }`}
               >
-                Anna Müller is affected by BAT-042.
+                Anna Müller returned the earbuds. Battery swollen.
               </p>
             ) : (
               <p className="mt-8 text-sm text-muted">
@@ -109,7 +110,7 @@ export default function ChamberPlay() {
                 countOn ? "slip-gone" : "slip-wait"
               }`}
             >
-              2 customers overlap on BAT-042.
+              A customer returned the earbuds. Battery swollen.
             </p>
           </article>
 
@@ -146,7 +147,7 @@ export default function ChamberPlay() {
               ) : null}
               {countOn ? (
                 <p className="slip-in border-2 border-paper bg-paper px-4 py-3 font-medium text-field">
-                  2 customers overlap on BAT-042. Seconded.
+                  A customer returned the earbuds. Battery swollen.
                 </p>
               ) : null}
               {allClear ? (
@@ -162,7 +163,7 @@ export default function ChamberPlay() {
           <article className="border-t border-line px-6 py-10 md:px-10">
             <h3 className="font-display text-3xl tracking-wide">File B</h3>
             <p className="mt-1 text-sm text-muted">Supplier. Private.</p>
-            <p className="mt-5">3 hits on batch BAT-042 in its own list.</p>
+            <p className="mt-5">Sees only what the chamber lets through.</p>
             <p
               className={`mt-8 text-lg font-medium ${
                 orderOn
@@ -175,8 +176,8 @@ export default function ChamberPlay() {
               {orderOn
                 ? "Stop. You sent a name. Never again."
                 : allClear || countOn
-                  ? "Count matches. Seconded."
-                  : "Waiting for a claim it can second."}
+                  ? "The sentence arrived."
+                  : "Waiting for a sentence."}
             </p>
           </article>
         </div>
@@ -204,8 +205,8 @@ export default function ChamberPlay() {
 
       <p className="px-6 py-8 text-sm text-muted md:px-10">
         {scene === "leak"
-          ? "This replay matches SuperGrid run 13311565059047633796. Endeavor proposed. Python gated. Open the file to search the Context."
-          : "The standing order held. No identity left File A. The count still crossed."}
+          ? "Endeavor proposed a name on SuperGrid run 13311565059047633796. Python gated it. The return ticket on this play is from File A on this laptop."
+          : "The standing order held. No identity left File A. The return still crossed."}
       </p>
     </section>
   );

@@ -8,13 +8,15 @@
       "customer_id": "C-1001",
       "customer_name": "Anna Müller",
       "customer_address": "Rollbergstraße 12, Berlin",
-      "batch_id": "BAT-042"
+      "batch_id": "BAT-042",
+      "return_reason": "battery swollen"
     },
     {
       "customer_id": "C-1002",
       "customer_name": "Peter Schmidt",
       "customer_address": "Sonnenallee 8, Berlin",
-      "batch_id": "BAT-042"
+      "batch_id": "BAT-042",
+      "return_reason": "battery swollen"
     },
     {
       "customer_id": "C-1003",

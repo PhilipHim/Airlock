@@ -66,13 +66,30 @@ body {
   }
 }
 
+@keyframes chamber-block-blink {
+  0%,
+  100% {
+    background-color: #1c1914;
+  }
+  45%,
+  55% {
+    background-color: #b42318;
+  }
+}
+
+.chamber-block-blink {
+  animation: chamber-block-blink 0.5s ease-in-out 4;
+  background-color: #b42318;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   .slip,
-  .slip-in {
+  .slip-in,
+  .chamber-block-blink {
     animation: none;
     transition: none;
     transform: none;
