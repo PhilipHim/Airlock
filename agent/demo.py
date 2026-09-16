@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from agent.propose import FLOWER_PROOF
 from agent.roles import chair, empty_state, gate_model_proposal, move, second, snapshot
 
 UI_DIR = Path(__file__).resolve().parent.parent / "ui"
@@ -17,6 +18,7 @@ def main() -> None:
     second(state)
     chair(state, "m2")
     view = snapshot(state)
+    view["flower"] = dict(FLOWER_PROOF)
     UI_DIR.mkdir(exist_ok=True)
     (UI_DIR / "last-run.json").write_text(
         json.dumps(view, ensure_ascii=False, indent=2) + "\n",

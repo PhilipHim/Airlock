@@ -7,6 +7,7 @@ import {
   type ChamberPreview,
   type InboxItem,
 } from "@/lib/chamber";
+import type { FlowerProof } from "@/lib/types";
 
 type Beat = 0 | 1 | 2 | 3 | 4;
 type ChamberMood = "idle" | "scan" | "block" | "allow";
@@ -97,7 +98,13 @@ function highlightClaim(text: string, hits: string[]) {
   );
 }
 
-export default function DemoBoard({ embedded = false }: { embedded?: boolean }) {
+export default function DemoBoard({
+  embedded = false,
+  flower = null,
+}: {
+  embedded?: boolean;
+  flower?: FlowerProof | null;
+}) {
   const [text, setText] = useState<string>(PRESETS[0].text);
   const [presetId, setPresetId] = useState<PresetId>("name");
   const [busy, setBusy] = useState(false);
@@ -257,7 +264,9 @@ export default function DemoBoard({ embedded = false }: { embedded?: boolean }) 
               Home
             </Link>
           </nav>
-          <p className="text-sm font-medium">The door</p>
+          <p className="text-sm font-medium">
+            {flower ? `SuperGrid ${flower.run_id}` : "The door"}
+          </p>
         </header>
       ) : null}
 
@@ -461,7 +470,11 @@ export default function DemoBoard({ embedded = false }: { embedded?: boolean }) 
           <span className="font-medium">{hits}</span>
           <span className="text-muted">{msg}</span>
           <span className="text-muted">
-            {modelUsed ? `Wrote with ${modelUsed}.` : "The door. Same Python policy."}
+            {modelUsed
+              ? `Wrote with ${modelUsed}.`
+              : flower
+                ? `${flower.model} on SuperGrid run ${flower.run_id}.`
+                : "The door. Same Python policy."}
           </span>
           {error ? <span className="text-block">{error}</span> : null}
         </div>

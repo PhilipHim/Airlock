@@ -2,7 +2,7 @@
 
 **Format:** 2 minutes talk, 1 minute questions.  
 **Language:** English. One thought per sentence.  
-**Screen:** http://localhost:3000 then **Run the incident**. Then Open the file.  
+**Screen:** http://localhost:3000 then **Live demo**. Search `Anna Müller`.  
 **Not the screen:** SuperGrid, terminal, this file.
 
 Jury criteria: Impact, Innovation, Flower, Execution, Presentation, Safety. Bonus: Flower Endeavor.
@@ -25,7 +25,7 @@ Watch File A. It tries to send Anna Müller with a return. The chamber stops the
 
 Press the arrow. The second play is the clean run. No name is offered. All clear. Search is still zero.
 
-AIRLOCK is a door on the shared write. Python allows the fields. A human still closes the record on the file screen.
+AIRLOCK is a door on the shared write. Python allows the fields. A human still closes the record on this page.
 
 Endeavor may propose the sentence. The gate is still Python. SuperGrid run 13311565059047633796 blocked the name. The return ticket is from File A on this laptop. You can grep the Context.
 
@@ -34,7 +34,7 @@ Built today: gate, seconding, standing order, human release, AgentApp, Endeavor 
 ## If they ask (1 minute)
 
 **Is this just a filter?**  
-Watch the second run. The name is not proposed again. That is policy memory, not a regex in the chat window. Then open the file and search.
+Watch the second run. The name is not proposed again. That is policy memory, not a regex in the chat window. Then search Anna Müller on this page.
 
 **Are these real agents?**  
 One AgentApp, one series, three roles: move, second, chair. Same shape as Flower's first AgentApp tutorial. We add the gate.
@@ -56,11 +56,11 @@ Yes. Model id `flower-endeavor-v1.0`. Run `13311565059047633796`. It proposed. P
 | Criterion | How the 2 minutes earn it |
 |-----------|---------------------------|
 | Impact | Play: leak, then firms can still share the return. |
-| Safety | Name never sits as a shared record. Search 0 on `/file`. Human still closes. |
+| Safety | Name never sits as a shared record. Search 0 on the live door. Human still closes. |
 | Innovation | Second run without the name. Seconding plus memory, not a chatbot filter. |
-| Flower | Caption on the play. AgentApp, Context, Endeavor. Then `/file`. |
+| Flower | Caption on the play. AgentApp, Context, Endeavor. SuperGrid run id on the door. |
 | Execution | One button. Do not boot during the visit. |
-| Presentation | `/` play first. Then Open the file. No scrolling the long copy. |
+| Presentation | `/` play first. Search on the same page. No second screen. |
 | Endeavor bonus | Live run, not the animation. `flower-endeavor-v1.0`. |
 
 ## Do not say
@@ -75,7 +75,7 @@ Do not debug in front of the jury. The play is a replay. The live proof is the S
 
 ## Who does what at the table
 
-**Talk + screen:** press Run the incident once. Then the arrow for the clean run. Then Open the file. Search already `Anna Müller`.
+**Talk + screen:** press Live demo. Search already `Anna Müller`.
 
 **Flower:** stay quiet unless they ask about SuperGrid, AgentApp, or Endeavor. Then: workspace, one AgentApp, model `flower-endeavor-v1.0`, Python gate, Context search. If StartRun is denied, say freeze. Do not open a terminal.
 

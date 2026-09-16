@@ -8,7 +8,7 @@ from typing import Any
 
 from agent.gate import inspect, redact_claim, scan
 from agent.orgs import aggregate_count, has_batch, shareable_return
-from agent.propose import ask as ask_model
+from agent.propose import FLOWER_PROOF, ask as ask_model
 from agent.roles import BATCH, empty_state, gate_model_proposal
 
 
@@ -72,6 +72,7 @@ def _ask_failed(kind: str, model: str, error: str) -> dict[str, Any]:
         "model": model,
         "draft": "",
         "ask_error": error,
+        "flower": {**FLOWER_PROOF, "live": False},
     }
 
 
@@ -132,6 +133,7 @@ def preview(body: dict[str, Any]) -> dict[str, Any]:
         "model": model,
         "draft": draft,
         "ask_error": None,
+        "flower": {**FLOWER_PROOF, "live": bool(asked and draft)},
     }
 
 

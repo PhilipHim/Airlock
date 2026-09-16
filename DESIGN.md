@@ -45,9 +45,8 @@ Karo-Farben: `#E36B2C` und `#F3EFE6`. Nicht Blau-Weiß.
 
 ## Routen
 
-- `/` Landing. Hero, then Run the incident (replay of leak, stop, return ticket, search 0).
-- `/file` Freeze from `ui/last-run.json`. Search Context.
-- `/akte` redirects to `/file`
+- `/` Landing plus live door. SuperGrid run id and search 0 sit on this page.
+- `/file` and `/akte` redirect to `/`
 
 ## Copy
 
@@ -59,3 +58,4 @@ PITCH.md. Kein Gedankenstrich. Kein „Building the future with AI“.
 - 2026-09-14: Karo wird zum Plates-Band in Koralle/Beige. Keyhole wird Hero. Blob-Type für Headlines.
 - 2026-09-16: Landing bekommt ein Play. Ein Druck zeigt Leak, Stop, zweiten Lauf ohne Namen. SuperGrid bleibt der Live-Beweis.
 - 2026-09-16: Shared write ist Retour-Ticket aus File A (Charge plus Grund). Kein Kunden-Overlap. Lieferant seconder die Charge aus der eigenen Fabrikakte.
+- 2026-09-16: `/file` entfällt. Ein Screen: Live-Demo. Freeze bleibt `ui/last-run.json`.

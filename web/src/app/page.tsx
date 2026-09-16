@@ -1,6 +1,8 @@
 import DemoBoard from "./demo/board";
+import { loadRun } from "@/lib/run";
 
-export default function Home() {
+export default async function Home() {
+  const run = await loadRun();
   return (
     <main>
       <section className="relative min-h-screen bg-paper">
@@ -48,7 +50,7 @@ export default function Home() {
       </section>
 
       <section id="incident">
-        <DemoBoard embedded />
+        <DemoBoard embedded flower={run?.flower ?? null} />
       </section>
 
       <section className="bg-ink px-6 py-20 text-paper md:px-16">
@@ -87,8 +89,8 @@ export default function Home() {
           <p className="mt-4 text-lg leading-relaxed">
             Flower Endeavor 1.0 proposed the sentence on SuperGrid run
             13311565059047633796, model flower-endeavor-v1.0. Python gated it.
-            A human still has to close the record. The name never sat in the
-            shared ledger.
+            Search on this page is still 0. A human still has to close the
+            record. The name never sat in the shared ledger.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-muted">
             Honest limit: today this is application-level isolation, one

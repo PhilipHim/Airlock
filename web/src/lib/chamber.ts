@@ -24,6 +24,14 @@ export type ChamberPreview = {
   model?: string;
   draft?: string;
   ask_error?: string | null;
+  flower?: {
+    run_id: string;
+    federation: string;
+    agentapp: string;
+    model: string;
+    input?: string;
+    live?: boolean;
+  };
 };
 
 export type InboxItem = {

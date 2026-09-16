@@ -117,5 +117,12 @@
       "risk_level": "high",
       "claim": "A customer returned the earbuds. Battery swollen."
     }
+  },
+  "flower": {
+    "run_id": "13311565059047633796",
+    "federation": "@philiphimmeroeder/workspace",
+    "agentapp": "agent.agent_app:app",
+    "model": "flower-endeavor-v1.0",
+    "input": "move"
   }
 }

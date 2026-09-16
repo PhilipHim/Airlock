@@ -9,6 +9,14 @@ export type Motion = {
   product_type?: string;
 };
 
+export type FlowerProof = {
+  run_id: string;
+  federation: string;
+  agentapp: string;
+  model: string;
+  input?: string;
+};
+
 export type LastRun = {
   org_a: {
     label: string;
@@ -33,4 +41,5 @@ export type LastRun = {
   }>;
   standing_orders: unknown[];
   audit?: Record<string, number>;
+  flower?: FlowerProof;
 };

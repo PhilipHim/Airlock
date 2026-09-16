@@ -1,4 +1,4 @@
-"""Model propose. Same OpenAI SDK path as the Flower AgentApp."""
+"""Flower Endeavor propose. SuperGrid injects FLWR_RUNTIME. AgentApp calls this."""
 
 from __future__ import annotations
 
@@ -15,6 +15,14 @@ DEFAULT_MODEL = "flower-endeavor-v1.0"
 ENDEAVOR_MODEL = "flower-endeavor-v1.0"
 KIND_MODELS = {
     "endeavor": ENDEAVOR_MODEL,
+}
+# Known SuperGrid move. AgentApp `agent.agent_app:app`, role move, Python gated m0.
+FLOWER_PROOF = {
+    "run_id": "13311565059047633796",
+    "federation": "@philiphimmeroeder/workspace",
+    "agentapp": "agent.agent_app:app",
+    "model": ENDEAVOR_MODEL,
+    "input": "move",
 }
 
 

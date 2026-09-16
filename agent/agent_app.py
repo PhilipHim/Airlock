@@ -8,7 +8,7 @@ from typing import Any
 from flwr.agentapp import AgentApp, AgentSession
 from flwr.app import ConfigRecord, Context
 
-from agent.propose import DEFAULT_MODEL, sdk_propose
+from agent.propose import DEFAULT_MODEL, FLOWER_PROOF, sdk_propose
 from agent.roles import chair, empty_state, gate_model_proposal, move, second, snapshot
 
 app = AgentApp()
@@ -64,6 +64,7 @@ def _model_id(context: Context) -> str:
 
 
 def _propose(context: Context) -> str:
+    # SuperGrid injects FLWR_RUNTIME. This is the Flower model call.
     model = _model_id(context)
     try:
         return sdk_propose(model)
@@ -74,6 +75,7 @@ def _propose(context: Context) -> str:
 
 @app.main()
 def main(agent: AgentSession, context: Context) -> None:
+    # One AgentApp. Roles on agent.input. Gate before every Context write.
     prompt = context.run_config.get("agent.input", "move")
     if not isinstance(prompt, str) or not prompt.strip():
         raise ValueError("agent.input must be move, second, or chair")
@@ -87,6 +89,7 @@ def main(agent: AgentSession, context: Context) -> None:
                 {
                     "type": "airlock.model_gated",
                     "model": _model_id(context),
+                    "flower": FLOWER_PROOF,
                 }
             )
         move(state)
@@ -98,6 +101,7 @@ def main(agent: AgentSession, context: Context) -> None:
     view = snapshot(state)
     safe = {
         "role": role,
+        "flower": FLOWER_PROOF,
         "motions": view["motions"],
         "public_record": view["public_record"],
         "audit": view["audit"],

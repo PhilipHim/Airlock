@@ -12,13 +12,13 @@ Table talk: `PITCH.md`.
 
 ## Split today
 
-**Talk person:** rehearse `PITCH.md`. Start on http://localhost:3000. Press Run the incident. Then Open the file.
+**Talk person:** rehearse `PITCH.md`. Start on http://localhost:3000. Press Live demo. Search `Anna Müller`.
 
 **Flower person:** no more debug runs. The live Endeavor propose already exists.
 
 ## Two surfaces
 
-Terminal SuperGrid is the Flower proof. `/file` is the jury picture. `/file` reads `ui/last-run.json`. It does not stream SuperGrid live.
+Terminal SuperGrid is the Flower proof. The live door on `/` shows the run id. `ui/last-run.json` is the freeze. It does not stream SuperGrid live.
 
 ## Jury screen (freeze)
 
@@ -32,10 +32,9 @@ npm install
 npm run dev
 ```
 
-- Landing: http://localhost:3000 (press Run the incident)
-- File (search proof): http://localhost:3000/file
+- Landing: http://localhost:3000 (press Live demo)
 
-Search `Anna Müller`. It must read 0 hits in Context. The middle must show `Model blocked: IDENTITY_DISCLOSURE`.
+Search `Anna Müller`. It must read 0 hits in the shared record. The caption shows SuperGrid run 13311565059047633796.
 
 ## How this matches Flower's AgentApp tutorial
 
@@ -72,7 +71,7 @@ Do not use `endeavor-1.0`. SuperGrid rejects that id.
 
 - `uv run python -m agent.check_gate` prints BLOCK on the name and ALLOW on the count.
 - SuperGrid snapshot: model `m0` blocked, count 2, audit Anna Müller 0.
-- Context search on `/file`: 0.
+- Context search on the live door: 0.
 - Talker may say: Endeavor proposed, Python gated.
 
 If StartRun is denied: freeze UI, say so, do not debug at the table.

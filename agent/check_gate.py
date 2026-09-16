@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 from agent.gate import inspect, scan
 from agent.live import preview
@@ -162,10 +163,25 @@ def main() -> None:
 
     from agent.propose import (
         ENDEAVOR_MODEL,
+        FLOWER_PROOF,
         ask as ask_model,
         model_for,
         propose_prompt,
     )
+
+    assert FLOWER_PROOF["run_id"] == "13311565059047633796"
+    assert FLOWER_PROOF["model"] == ENDEAVOR_MODEL
+    assert FLOWER_PROOF["agentapp"] == "agent.agent_app:app"
+    freeze = json.loads(
+        (Path(__file__).resolve().parent.parent / "ui" / "last-run.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert freeze["flower"]["run_id"] == FLOWER_PROOF["run_id"]
+    assert freeze["motions"][0]["id"] == "m0"
+    assert freeze["motions"][0]["source"] == "model"
+    assert freeze["audit"]["Anna Müller"] == 0
+    print(f"FLOWER SuperGrid run {FLOWER_PROOF['run_id']}")
 
     assert model_for("endeavor") == ENDEAVOR_MODEL == "flower-endeavor-v1.0"
     assert model_for("openai") == ENDEAVOR_MODEL
@@ -191,6 +207,10 @@ def main() -> None:
     assert forced["ok"] is False
     assert forced["model"] == ENDEAVOR_MODEL
     assert "openai" not in forced["error"].lower()
+    proof = preview({"ask": "endeavor", "case": "name"})
+    assert proof["flower"]["run_id"] == FLOWER_PROOF["run_id"]
+    assert proof["flower"]["live"] is False
+    assert proof["model"] == ENDEAVOR_MODEL
     for key, value in saved.items():
         if value is None:
             os.environ.pop(key, None)
