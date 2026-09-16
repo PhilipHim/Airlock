@@ -56,18 +56,16 @@ export default function Home() {
             Agents overshare the moment they collaborate.
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-paper/85">
-            Give two models a joint task and they send names, customer IDs, and
-            addresses with the useful count. A prompt that says be careful does
-            not hold. The model is trying to help. Help, here, is a leak.
+            Give two models a joint task and they send names with the useful
+            count. Firms then stop the agents talking. The files sit unused.
+            AIRLOCK is the door that lets the count through and keeps the name
+            in File A. The work can finish. The identity does not travel.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-paper/85">
-            Firms then keep agents apart. The files sit unused. The models can
-            do the work. Nobody set the rights.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-paper/85">
-            AIRLOCK covers the rights on the shared write, a second from the
-            other file, and memory of the block on the next run. It does not
-            claim to fix long-horizon drift or week-long memory.
+            A prompt that says be careful does not hold. The other agent has to
+            second the claim from its own file. Python then checks every field.
+            After a block, a standing order means the name is not proposed
+            again. That is policy on the shared write, not a longer chat.
           </p>
         </div>
       </section>
@@ -80,81 +78,25 @@ export default function Home() {
             A sentence crosses only if three checks pass.
           </h2>
           <p className="mt-6 text-lg leading-relaxed">
-            AIRLOCK is a shared channel with a door. Agent A may propose a
-            claim. Agent B must second it from its own file. Python then checks
-            every field: a count may pass, a name may not. Even an allowed
-            sentence stays private until a human closes the record.
+            One Flower AgentApp runs the three roles: move, second, chair. The
+            ledger lives in Flower Context. SuperGrid is the runtime. You can
+            search it. Watch the chamber on this page. Then open the file. One
+            button. The freeze is already there. We do not debug at the table.
           </p>
           <p className="mt-4 text-lg leading-relaxed">
-            That is the product. Code in front of the shared write, plus a
-            person who says this may go out. A longer prompt is hope.
-          </p>
-        </div>
-      </section>
-
-      <section className="grid md:grid-cols-3">
-        <div className="border-b border-line px-8 py-16 md:border-b-0 md:border-r">
-          <h2 className="font-display text-3xl tracking-wide">File A</h2>
-          <p className="mt-3 text-muted">
-            Agent A sees Anna Müller and the rest of the retailer list. Flower
-            Context never stores that file. The other agent cannot read it.
-          </p>
-        </div>
-        <div className="border-b border-line bg-accent px-8 py-16 text-paper md:border-b-0">
-          <h2 className="font-display text-3xl tracking-wide">Chamber</h2>
-          <p className="mt-3">
-            Empty until a second, the gate, and a human agree. Private files.
-            Airlock. Human release.
-          </p>
-        </div>
-        <div className="px-8 py-16 md:border-l md:border-line">
-          <h2 className="font-display text-3xl tracking-wide">File B</h2>
-          <p className="mt-3 text-muted">
-            Agent B sees its own supplier list. No IDs from the left. It can
-            only second a claim it can support from this file.
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-paper px-6 py-20 md:px-16">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="font-display text-3xl tracking-wide md:text-5xl">
-            You can search the Context. That is the proof.
-          </h2>
-          <p className="mt-6 text-lg leading-relaxed">
-            After the name is blocked, search Flower Context for Anna Müller.
-            Zero hits. The name still sits in File A. It never entered the
-            shared ledger. A filter you cannot inspect is a story. An empty
-            Context is a fact.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed">
-            What is unique here is the second. The other organisation has to
-            back the claim from its own records. The gate then strips identity.
-            The human still has to release. Three doors, one sentence.
+            Flower Endeavor 1.0 proposed the sentence on SuperGrid run
+            13311565059047633796, model flower-endeavor-v1.0. Python gated it.
+            Search Anna Müller. Zero hits. A human still has to close the
+            record. The name never sat in the shared ledger.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-muted">
             Honest limit: today this is application-level isolation, one
-            AgentApp, two JSON files. In production each firm would run its own
-            node. We do not pretend the process boundary is physical yet.
-          </p>
-        </div>
-      </section>
-
-      <section className="flex flex-col items-start gap-8 px-8 py-24 md:flex-row md:items-center md:px-16">
-        <p className="font-display text-[8rem] leading-none tracking-wide md:text-[12rem]">
-          0
-        </p>
-        <div>
-          <h2 className="font-display text-4xl tracking-wide md:text-5xl">
-            Anna Müller in Context
-          </h2>
-          <p className="mt-4 max-w-lg text-lg">
-            Zero hits after the block. Names stay on the left. The shared
-            middle stays empty.
+            process, two JSON files. In production each firm would run its own
+            node.
           </p>
           <Link
             href="/file"
-            className="mt-8 inline-block rounded-full bg-accent px-6 py-3 font-medium text-paper"
+            className="mt-10 inline-block rounded-full bg-accent px-6 py-3 font-medium text-paper"
           >
             Open the file
           </Link>

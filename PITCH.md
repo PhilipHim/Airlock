@@ -23,7 +23,7 @@ Press Run the incident.
 
 Watch File A. It tries to send Anna Müller. The chamber stops it. File B says never again. The next run does not send the name. Only the count crosses. Two customers overlap on BAT-042. Agent B can second that from its own list.
 
-Search is zero. The name stayed in File A.
+Press the arrow. The second play is the clean run. No name is offered. All clear. Search is still zero.
 
 AIRLOCK is a door on the shared write. The other agent must second from its own file. Python allows the fields. A human still closes the record on the file screen.
 
@@ -75,7 +75,7 @@ Do not debug in front of the jury. The play is a replay. The live proof is the S
 
 ## Who does what at the table
 
-**Talk + screen:** press Run the incident once. Mouse on the chamber. Then Open the file. Search already `Anna Müller`.
+**Talk + screen:** press Run the incident once. Then the arrow for the clean run. Then Open the file. Search already `Anna Müller`.
 
 **Flower:** stay quiet unless they ask about SuperGrid, AgentApp, or Endeavor. Then: workspace, one AgentApp, model `flower-endeavor-v1.0`, Python gate, Context search. If StartRun is denied, say freeze. Do not open a terminal.
 
