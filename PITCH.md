@@ -1,81 +1,90 @@
-# Pitch
+# AIRLOCK table pitch
 
-Table visits: **2 minutes talk, 1 minute questions.** Screen on `/file` before they arrive. Laptop unlocked. Search box already `Anna Müller`.
+**Format:** 2 minutes talk, 1 minute questions.  
+**Language:** English. One thought per sentence.  
+**Screen:** http://localhost:3000/file  
+**Not the screen:** landing, SuperGrid, terminal, this file.
 
-English. One thought per sentence.
+Jury criteria: Impact, Innovation, Flower, Execution, Presentation, Safety. Bonus: Flower Endeavor.
 
-## 2 minutes (speak this)
+## Before they reach the table
+
+Laptop unlocked. Browser on `/file`, not `/`. Search box already `Anna Müller`. Result already `0 hits in Context`. Do not start the server while they stand there. Do not open SuperGrid during the visit.
+
+What the screen must already show:
+
+- File A has names. File B has a count. Shared channel has a block and a count.
+- Block: `m1` IDENTITY_DISCLOSURE.
+- Released: `2 customers overlap on batch BAT-042.`
+- Search `Anna Müller`: 0.
+
+If the page is empty: `uv run python -m agent.demo` then `cd web && npm run dev`. Then stop talking and wait.
+
+## Speak this (about 2 minutes)
 
 Agents leak the moment they collaborate. Names and IDs travel with the useful count. Firms then stop the agents talking.
 
-AIRLOCK is a door on the shared channel. A sentence crosses only if the other agent can second it from its own file, Python allows the fields, and a human closes the record.
+AIRLOCK is a door on the shared channel. A sentence crosses only if three checks pass. The other agent can second it from its own file. Python allows the fields. A human closes the record.
 
 Watch the screen. Agent A proposed a name. The middle blocked it. Search Flower Context for Anna Müller. Zero hits. The name stays in File A. It never entered the ledger.
 
-The count did. Two customers overlap on batch BAT-042. Agent B could support that from its own list. A human still has to press Close record.
+The count did. Two customers overlap on batch BAT-042. Agent B could support that from its own list. A human still had to press Close record.
 
-Endeavor may propose the sentence. The gate is still Python. A prompt is hope. You can grep the Context.
+The model may propose the sentence. The gate is still Python. A prompt is hope. You can grep the Context.
 
-Built: gate, seconding, human release, AgentApp, Context ledger. Faked: two JSON files, one process. Next: one node per company.
+Built today: gate, seconding, human release, AgentApp, Context ledger. Honest limit: two JSON files, one process. Next: one Flower node per company.
 
-## 1 minute answers
+## If they ask (1 minute)
 
-Is this just a filter?
-Search the Context. Then run two. The name is not proposed again.
+**Is this just a filter?**  
+Search the Context. Then run two. The name is not proposed again. That is policy memory, not a regex in the chat window.
 
-Are these real agents?
-One AgentApp, one series, three roles: move, second, chair. Shared ledger, private files.
+**Are these real agents?**  
+One AgentApp, one series, three roles: move, second, chair. Shared ledger. Private files.
 
-Why Flower?
-Context is the proof. Endeavor proposes. Python decides. SuperGrid is the runtime when StartRun is allowed.
+**Why Flower?**  
+Context is the proof. SuperGrid is the runtime. Endeavor may propose. Python decides.
 
-Why not a longer prompt?
+**Why not a longer prompt?**  
 You would have to trust us. Here you can look.
 
-## Criteria (do not list them out loud)
+**Is the isolation physical?**  
+No. Application-level today. Production would be one node per org.
 
-| Criterion | How you score it in 2 min |
+**Did Endeavor actually run?**  
+If Flower person confirmed a live propose before the visit: yes, Endeavor proposed, Python gated, name still 0. If not: the gate is proven locally and on SuperGrid. The model call is next, not the claim.
+
+## How each criterion is scored (do not read this aloud)
+
+| Criterion | How the 2 minutes earn it |
 |-----------|---------------------------|
 | Impact | First 20 seconds: leak, then firms stop collaborating. |
 | Safety | Search 0. Gate is code. Human still closes. |
-| Innovation | Seconding plus Python, not a chatbot filter. |
-| Flower | AgentApp, Context, series, events. Point at SuperGrid if the run exists. |
+| Innovation | Seconding plus Python. Not a chatbot filter. |
+| Flower | AgentApp, Context, series, events. Point at `/file`, not the docs. |
 | Execution | Screen already showing block + 2 + 0. Do not boot during the visit. |
-| Presentation | One laptop, `/file`, no scrolling the landing. |
-| Endeavor bonus | Say the model proposed, Python gated. Show `agent.model=endeavor-1.0` if asked. |
+| Presentation | One laptop. `/file`. No scrolling the landing. |
+| Endeavor bonus | Only if the live propose is confirmed. Then: model proposed, Python gated. `agent.model=endeavor-1.0`. |
 
-Do not claim long-horizon reliability, alignment-complete, or physical isolation.
+## Do not say
 
-## Team split
+Do not claim long-horizon reliability.  
+Do not claim alignment is solved.  
+Do not claim physical isolation.  
+Do not claim Cambridge winners.  
+Do not claim this is the biggest AI compliance problem.  
+Do not debug in front of the jury. Freeze UI is the backup.
 
-**Talk + screen (Philip):** 2 min script. Mouse on search. Close record only if they ask to see the human step.
+## Who does what at the table
 
-**Flower + GitHub (teammate):** Access lands: `flwr login`, `flwr run` with Endeavor, keep the same series. Repo public, no `.venv`, no `.env`, no keys. If StartRun still denied: say freeze, do not debug in front of the jury.
+**Talk + screen:** this script. Mouse on the search box. Stay on `/file`. Close record only if they ask and the button is live.
 
-Both: 1 min Q&A. Talk person takes Safety/Impact. Flower person takes Flower/Endeavor.
+**Flower:** stay quiet unless they ask about SuperGrid, AgentApp, or Endeavor. Then: workspace federation, one series, three roles, Context search. If StartRun is denied, say freeze. Do not open a terminal.
 
-## When access arrives
+Both take Q&A. Talk person takes Safety and Impact. Flower person takes Flower and Endeavor.
 
-Ask Slack for the exact Endeavor model id if `endeavor-1.0` fails.
+## Who does what until then
 
-```bash
-cd ~/Desktop/jph/projects/airlock
-uv run flwr login supergrid
-uv run flwr run . supergrid --federation @philiphimmeroeder/workspace --run-config 'agent.model="endeavor-1.0" agent.input="move"' --stream
-# same series, do not switch agent
-uv run flwr run . supergrid --federation @philiphimmeroeder/workspace --run-config 'agent.input="second"' --stream
-uv run flwr run . supergrid --federation @philiphimmeroeder/workspace --run-config 'agent.input="chair m2"' --stream
-```
+**Talk person:** rehearse this out loud once with a timer. Keep `/file` ready. Clone is https://github.com/PhilipHim/Airlock
 
-Use **workspace** (simulation). Do not use **personal** (deployment). That one returns StartRun denied. Skip SuperNodes.
-
-If the Orga UI looks like Claude Code: pick **Endeavor**, same three roles. The gate still runs in our FAB.
-
-## Freeze backup
-
-```bash
-uv run python -m agent.demo
-cd web && npm run dev
-```
-
-Open http://localhost:3000/file
+**Flower person:** prove Endeavor and finish the live series. Exact commands are in README.md. Use `@philiphimmeroeder/workspace`. Never `@philiphimmeroeder/personal`.
