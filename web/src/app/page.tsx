@@ -1,5 +1,4 @@
-import Link from "next/link";
-import ChamberPlay from "./chamber-play";
+import DemoBoard from "./demo/board";
 
 export default function Home() {
   return (
@@ -9,20 +8,12 @@ export default function Home() {
           <span className="font-display text-2xl tracking-wide text-accent">
             AIRLOCK
           </span>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/demo"
-              className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-paper"
-            >
-              Live demo
-            </Link>
-            <Link
-              href="/file"
-              className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-paper"
-            >
-              Open the file
-            </Link>
-          </div>
+          <a
+            href="#incident"
+            className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-paper"
+          >
+            Live demo
+          </a>
         </nav>
 
         <div className="grid min-h-screen md:grid-cols-2">
@@ -39,9 +30,9 @@ export default function Home() {
               href="#incident"
               className="mt-8 inline-flex h-28 w-28 items-center justify-center rounded-full bg-accent text-center text-sm font-medium leading-tight text-paper"
             >
-              Run the
+              Live
               <br />
-              incident
+              demo
             </a>
           </div>
           <div className="relative min-h-[55vh] md:min-h-screen">
@@ -56,7 +47,9 @@ export default function Home() {
         <div className="karo absolute bottom-0 left-0 right-0 z-10" aria-hidden />
       </section>
 
-      <ChamberPlay />
+      <section id="incident">
+        <DemoBoard embedded />
+      </section>
 
       <section className="bg-ink px-6 py-20 text-paper md:px-16">
         <div className="mx-auto max-w-2xl">
@@ -88,34 +81,26 @@ export default function Home() {
           </h2>
           <p className="mt-6 text-lg leading-relaxed">
             One Flower AgentApp runs the three roles: move, second, chair. The
-            ledger lives in Flower Context. SuperGrid is the runtime. You can
-            search it. Watch the chamber on this page. Then open the live demo.
+            ledger lives in Flower Context. SuperGrid is the runtime. The door
+            on this page is the live demo.
           </p>
           <p className="mt-4 text-lg leading-relaxed">
             Flower Endeavor 1.0 proposed the sentence on SuperGrid run
             13311565059047633796, model flower-endeavor-v1.0. Python gated it.
-            Search Anna Müller. Zero hits. A human still has to close the
-            record. The name never sat in the shared ledger.
+            A human still has to close the record. The name never sat in the
+            shared ledger.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-muted">
             Honest limit: today this is application-level isolation, one
             process, two JSON files. In production each firm would run its own
             node.
           </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href="/demo"
-              className="inline-block rounded-full bg-accent px-6 py-3 font-medium text-paper"
-            >
-              Live demo
-            </Link>
-            <Link
-              href="/file"
-              className="inline-block rounded-full bg-ink px-6 py-3 font-medium text-paper"
-            >
-              Open the file
-            </Link>
-          </div>
+          <a
+            href="#incident"
+            className="mt-10 inline-block rounded-full bg-accent px-6 py-3 font-medium text-paper"
+          >
+            Live demo
+          </a>
         </div>
       </section>
     </main>

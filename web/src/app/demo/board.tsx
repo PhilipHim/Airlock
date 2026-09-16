@@ -97,7 +97,7 @@ function highlightClaim(text: string, hits: string[]) {
   );
 }
 
-export default function DemoBoard() {
+export default function DemoBoard({ embedded = false }: { embedded?: boolean }) {
   const [text, setText] = useState<string>(PRESETS[0].text);
   const [presetId, setPresetId] = useState<PresetId>("name");
   const [busy, setBusy] = useState(false);
@@ -246,20 +246,22 @@ export default function DemoBoard() {
 
   return (
     <div className="flex min-h-screen flex-col bg-paper">
-      <div className="karo" aria-hidden />
-      <header className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 md:px-10">
-        <nav className="flex items-center gap-4 rounded-full bg-white px-5 py-2 shadow-[0_10px_28px_rgba(28,25,20,0.12)]">
-          <Link href="/" className="font-display text-xl tracking-wide text-accent">
-            AIRLOCK
-          </Link>
-          <Link href="/" className="text-sm font-medium">
-            Home
-          </Link>
-        </nav>
-        <p className="text-sm font-medium">The door</p>
-      </header>
+      {!embedded ? <div className="karo" aria-hidden /> : null}
+      {!embedded ? (
+        <header className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 md:px-10">
+          <nav className="flex items-center gap-4 rounded-full bg-white px-5 py-2 shadow-[0_10px_28px_rgba(28,25,20,0.12)]">
+            <Link href="/" className="font-display text-xl tracking-wide text-accent">
+              AIRLOCK
+            </Link>
+            <Link href="/" className="text-sm font-medium">
+              Home
+            </Link>
+          </nav>
+          <p className="text-sm font-medium">The door</p>
+        </header>
+      ) : null}
 
-      <main className="grid flex-1 md:grid-cols-3">
+      <div className="grid flex-1 md:grid-cols-3">
         <section className="border-t border-line px-6 py-8 md:border-r md:px-10">
           <h1 className="font-display text-3xl tracking-wide">Agent A</h1>
           <p className="mt-1 text-sm text-muted">Retailer. Private file.</p>
@@ -385,7 +387,7 @@ export default function DemoBoard() {
             )}
           </div>
         </section>
-      </main>
+      </div>
 
       <div className="karo" aria-hidden />
 

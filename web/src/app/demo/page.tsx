@@ -1,5 +1,10 @@
-import DemoBoard from "./board";
+"use client";
+
+import { useEffect } from "react";
 
 export default function DemoPage() {
-  return <DemoBoard />;
+  useEffect(() => {
+    window.location.replace("/#incident");
+  }, []);
+  return null;
 }
