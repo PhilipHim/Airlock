@@ -391,16 +391,21 @@ export default function DemoBoard({ embedded = false }: { embedded?: boolean }) 
       </div>
 
       <div className="sticky bottom-0 bg-paper">
-      <p className="border-t border-line px-6 pt-4 md:px-10">
-        <span className="font-medium">
+      <details className="border-t border-line px-6 py-3 md:px-10">
+        <summary className="cursor-pointer text-sm font-medium">Info</summary>
+        <p className="mt-3 font-medium">
           {ENDEAVOR_PROOF.label} · SuperGrid run {ENDEAVOR_PROOF.run} · model{" "}
           {ENDEAVOR_PROOF.model}
-        </span>
-        <span className="mt-1 block text-sm text-muted">
+        </p>
+        <p className="mt-1 text-sm text-muted">
           This page is the door. The number is the SuperGrid run that called
           Endeavor.
-        </span>
-      </p>
+        </p>
+        <p className="mt-1 text-sm text-muted">
+          After a stop, a standing order on the shared write in Flower Context
+          means the next move does not offer the name.
+        </p>
+      </details>
       <form
         className="px-6 py-5 md:px-10"
         onSubmit={(e) => {
